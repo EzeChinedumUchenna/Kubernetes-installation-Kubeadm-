@@ -44,29 +44,42 @@ backend kubernetes-backend
     server kmaster2 172.16.16.102:6443 check fall 3 rise 2
 ```
     
-Restart haproxy service
+##### Restart haproxy service
 ```
 systemctl restart haproxy
 ```
-On all kubernetes nodes (kmaster1, kmaster2, kworker1)
-Disable Firewall
+
+
+## On all kubernetes nodes (kmaster1, kmaster2, kworker1)
+##### Disable Firewall
+```
 ufw disable
-Disable swap
+```
+##### Disable swap
+```
 swapoff -a; sed -i '/swap/d' /etc/fstab
-Update sysctl settings for Kubernetes networking
+```
+##### Update sysctl settings for Kubernetes networking
+```
 cat >>/etc/sysctl.d/kubernetes.conf<<EOF
 net.bridge.bridge-nf-call-ip6tables = 1
 net.bridge.bridge-nf-call-iptables = 1
 EOF
 sysctl --system
-Install docker engine
+```
+##### Install docker engine
 {
   apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
   curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
   add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
   apt update && apt install -y docker-ce=5:19.03.10~3-0~ubuntu-focal containerd.io
 }
-Kubernetes Setup
+
+
+
+
+
+## Kubernetes Setup
 Add Apt repository
 {
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
