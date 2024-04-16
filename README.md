@@ -124,7 +124,7 @@ sudo apt-get update
    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
    ```
 
-3. Add the appropriate Kubernetes apt repository
+3. Add the appropriate Kubernetes apt repository to setup Kubernetes
    ```
    # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
    echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
@@ -168,8 +168,14 @@ KUBELET_EXTRA_ARGS=--cgroup-driver=systemd into /etc/sysconfig/kubelet
 
 
 
+## On any one of the Kubernetes master node (Eg: kmaster1)
+```
+sudo rm /etc/containerd/config.toml
+sudo systemctl restart containerd
 
-## Kubernetes Setup
+kubeadm init --control-plane-endpoint="10.0.2.5:6443" --upload-certs --apiserver-advertise-address=10.0.2.4 --pod-network-cidr=192.168.0.0/16
+```
+
 Add Apt repository
 {
   curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
