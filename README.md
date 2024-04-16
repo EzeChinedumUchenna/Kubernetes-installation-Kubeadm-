@@ -79,7 +79,12 @@ sysctl --system
 ```
 
 ##### Install Docker Engine on Ubuntu
-1. Set up Docker's apt repository.
+
+1. Run the following command to uninstall all conflicting packages:
+```
+ for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo
+```
+2. Set up Docker's apt repository.
 
 ```
 sudo apt-get update
@@ -98,6 +103,42 @@ sudo apt-get update
 
 ```
 
+3. Install the docker package
+   ```
+   sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+   
+   ```
+
+##### Installing kubeadm, kubelet and kubectl
+
+1. Update the apt package
+   ```
+   sudo apt-get update
+   # apt-transport-https may be a dummy package; if so, you can skip that package
+   sudo apt-get install -y apt-transport-https ca-certificates curl gpg
+   ```
+2. Download the public signing Key
+   ```
+   # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
+   sudo mkdir -m 760 /etc/apt/keyrings 
+   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   ```
+
+3. Update the apt package index, install kubelet, kubeadm and kubectl, and pin their version:
+
+   ```
+   sudo apt-get update
+   sudo apt-get install -y kubelet kubeadm kubectl
+   sudo apt-mark hold kubelet kubeadm kubectl
+   ```
+
+4. (Optional) Enable the kubelet service before running kubeadm:
+
+  ```
+  sudo systemctl enable --now kubelet
+  ```
+NOTE: The kubelet is now restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
 
 
 ##### configure cgroup Driver 
