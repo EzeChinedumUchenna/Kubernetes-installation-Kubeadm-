@@ -166,13 +166,16 @@ KUBELET_EXTRA_ARGS=--cgroup-driver=systemd into /etc/sysconfig/kubelet
 }
 ```
 
+4. Run this on all the Nodes (Else you will get this "Error "[ERROR CRI]: container runtime is not running: output: time="2024-04-16T20:23:48Z" level=fatal msg="validate service connection: validate CRI v1 
+runtime API for endpoint \"unix:///var/run/containerd/containerd.sock\": rpc error: code = Unimplemented desc = unknown service runtime.v1.RuntimeService")
+   ```
+   sudo rm /etc/containerd/config.toml
+   sudo systemctl restart containerd
+   ```
 
+## On any one of the Kubernetes master node (Eg: Master-01)
 
-## On any one of the Kubernetes master node (Eg: kmaster1)
 ```
-sudo rm /etc/containerd/config.toml
-sudo systemctl restart containerd
-
 kubeadm init --control-plane-endpoint="10.0.2.5:6443" --upload-certs --apiserver-advertise-address=10.0.2.4 --pod-network-cidr=192.168.0.0/16
 ```
 
