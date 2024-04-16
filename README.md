@@ -17,7 +17,9 @@ If you want to try this in a virtualized environment on your workstation
 
 ## Set up load balancer node
 Install Haproxy
-''' apt update && apt install -y haproxy
+``` 
+apt update && apt install -y haproxy
+```
 Configure haproxy
 Append the below lines to /etc/haproxy/haproxy.cfg
 
