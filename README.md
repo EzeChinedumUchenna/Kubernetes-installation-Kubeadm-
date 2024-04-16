@@ -1,9 +1,9 @@
 # Setup a Highly Available Kubernetes Cluster using kubeadm
+
 Follow this documentation to set up a highly available Kubernetes cluster using Ubuntu 20.04 LTS.
 
 This documentation guides you in setting up a cluster with two master nodes, one worker node and a load balancer node using HAProxy.
 
-Vagrant Environment
 Role	FQDN	IP	OS	RAM	CPU
 Load Balancer	loadbalancer.example.com	172.16.16.100	Ubuntu 20.04	1G	1
 Master	kmaster1.example.com	172.16.16.101	Ubuntu 20.04	2G	2
@@ -14,15 +14,10 @@ Perform all the commands as root user unless otherwise specified
 Pre-requisites
 If you want to try this in a virtualized environment on your workstation
 
-Virtualbox installed
-Vagrant installed
-Host machine has atleast 8 cores
-Host machine has atleast 8G memory
-Bring up all the virtual machines
-vagrant up
-Set up load balancer node
+
+## Set up load balancer node
 Install Haproxy
-apt update && apt install -y haproxy
+''' apt update && apt install -y haproxy
 Configure haproxy
 Append the below lines to /etc/haproxy/haproxy.cfg
 
