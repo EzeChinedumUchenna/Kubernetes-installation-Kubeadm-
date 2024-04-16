@@ -194,7 +194,7 @@ kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectca
 
 Join other nodes to the cluster (kmaster2 & kworker1).
 
-NOTE: MAKE SURE YOU KEEP THE JOIN COMMAND SAFE AS YOU WILL BE USING THE SAME COMMAND TO JOIN MORE NODE TO THE CLUSTER
+#### NOTE: MAKE SURE YOU KEEP THE JOIN COMMAND SAFE AS YOU WILL BE USING THE SAME COMMAND TO JOIN MORE NODE TO THE CLUSTER
 
 
 ##### Downloading kube config to your local machine
