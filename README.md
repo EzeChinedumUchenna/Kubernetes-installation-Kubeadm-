@@ -21,11 +21,11 @@ sudo -i
 ```
 
 ## Set up load balancer node
-> Install Haproxy
+Install Haproxy
 ``` 
 apt update && apt install -y haproxy
 ```
-> Configure haproxy
+Configure haproxy
 Append the below lines to /etc/haproxy/haproxy.cfg
 
 frontend kubernetes-frontend
@@ -42,8 +42,8 @@ backend kubernetes-backend
     server kmaster2 172.16.16.102:6443 check fall 3 rise 2
 
     
-Restart haproxy service
-systemctl restart haproxy
+### Restart haproxy service
+```systemctl restart haproxy```
 On all kubernetes nodes (kmaster1, kmaster2, kworker1)
 Disable Firewall
 ufw disable
