@@ -2,27 +2,30 @@
 
 Follow this documentation to set up a highly available Kubernetes cluster using Ubuntu 20.04 LTS.
 
-This documentation guides you in setting up a cluster with two master nodes, one worker node and a load balancer node using HAProxy.
+This documentation guides you in setting up a cluster with two master nodes, two worker node and a load balancer node using HAProxy.
 
 
 
 
 | Role          | IP            | OS     | RAM | CPU |
 |---------------|---------------|--------|-----|-----|
-| Load Balancer | 172.16.16.100 | Ubuntu 20.04 | 1G  | 1   |
-| Master-01     | 172.16.16.101 | Ubuntu 20.04 | 2G  | 2   |
-| Master-01     | 172.16.16.102 | Ubuntu 20.04 | 2G  | 2   |
-| WorkerNode-01 | 172.16.16.201 | Ubuntu 20.04 | 1G  | 1   |
-| WorkerNode-02 | 172.16.16.201 | Ubuntu 20.04 | 1G  | 1   |
+| Load Balancer | 10.0.2.5 | Ubuntu 20.04 | 2G  | 1   |
+| Master-01     | 10.0.2.4 | Ubuntu 20.04 | 2G  | 2   |
+| Master-02     | 10.0.2.6 | Ubuntu 20.04 | 2G  | 2   |
+| WorkerNode-01 | 172.16.16.201 | Ubuntu 20.04 | 2G  | 1   |
+| WorkerNode-02 | 172.16.16.201 | Ubuntu 20.04 | 2G  | 1   |
 
-
+Switch to Root user 
+```
+sudo -i
+```
 
 ## Set up load balancer node
-Install Haproxy
+> Install Haproxy
 ``` 
 apt update && apt install -y haproxy
 ```
-Configure haproxy
+> Configure haproxy
 Append the below lines to /etc/haproxy/haproxy.cfg
 
 frontend kubernetes-frontend
@@ -37,6 +40,8 @@ backend kubernetes-backend
     balance roundrobin
     server kmaster1 172.16.16.101:6443 check fall 3 rise 2
     server kmaster2 172.16.16.102:6443 check fall 3 rise 2
+
+    
 Restart haproxy service
 systemctl restart haproxy
 On all kubernetes nodes (kmaster1, kmaster2, kworker1)
