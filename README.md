@@ -31,7 +31,7 @@ Append the below lines to /etc/haproxy/haproxy.cfg
 
 ```
 frontend kubernetes-frontend
-    bind 172.16.16.100:6443
+    bind 10.0.2.5:6443
     mode tcp
     option tcplog
     default_backend kubernetes-backend
@@ -40,8 +40,8 @@ backend kubernetes-backend
     mode tcp
     option tcp-check
     balance roundrobin
-    server kmaster1 172.16.16.101:6443 check fall 3 rise 2
-    server kmaster2 172.16.16.102:6443 check fall 3 rise 2
+    server Master-01 10.0.2.4:6443 check fall 3 rise 2
+    server Master-02 10.0.2.6:6443 check fall 3 rise 2
 ```
     
 ##### Restart haproxy service
