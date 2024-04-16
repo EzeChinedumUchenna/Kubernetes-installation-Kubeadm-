@@ -1,5 +1,6 @@
 # Setup a Highly Available Kubernetes Cluster using kubeadm
 Follow this documentation to set up a highly available Kubernetes cluster using Ubuntu 20.04 LTS.
+
 This documentation guides you in setting up a cluster with two master nodes, one worker node and a load balancer node using HAProxy.
 
 Vagrant Environment
