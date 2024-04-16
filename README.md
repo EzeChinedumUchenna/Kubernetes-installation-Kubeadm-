@@ -15,7 +15,7 @@ This documentation guides you in setting up a cluster with two master nodes, two
 | WorkerNode-01 | 172.16.16.201 | Ubuntu 20.04 | 2G  | 1   |
 | WorkerNode-02 | 172.16.16.201 | Ubuntu 20.04 | 2G  | 1   |
 
-Switch to Root user 
+##### Switch to Root user on all nodes
 ```
 sudo -i
 ```
