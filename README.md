@@ -192,22 +192,24 @@ kubectl --kubeconfig=/etc/kubernetes/admin.conf get node
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.15/manifests/calico.yaml
 ```
 
-Join other nodes to the cluster (kmaster2 & kworker1)
+Join other nodes to the cluster (kmaster2 & kworker1).
+
 NOTE: MAKE SURE YOU KEEP THE JOIN COMMAND SAFE AS YOU WILL BE USING THE SAME COMMAND TO JOIN MORE NODE TO THE CLUSTER
 
 
 ##### Downloading kube config to your local machine
-On your host machine make a directory
-
+###### On your host machine make a directory
+```
 mkdir ~/.kube
 scp root@172.16.16.101:/etc/kubernetes/admin.conf ~/.kube/config
+```
 
-
-Verifying the cluster
+##### Verifying the cluster
+```
 kubectl cluster-info
 kubectl get nodes
 kubectl -n kube-system get all
 kubectl get cs
+```
 
-
-THE END !!!
+## THE END !!!
