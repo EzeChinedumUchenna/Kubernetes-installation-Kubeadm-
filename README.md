@@ -7,8 +7,8 @@ This documentation guides you in setting up a cluster with two master nodes, one
 
 
 
-| Role          | IP            | OS           | RAM | CPU |
-|---------------|------------------------|---------------|--------------|
+| Role          | IP            | OS     | RAM | CPU |
+|---------------|---------------|--------|-----|-----|
 | Load Balancer | 172.16.16.100 | Ubuntu 20.04 | 1G  | 1   |
 | Master-01     | 172.16.16.101 | Ubuntu 20.04 | 2G  | 2   |
 | Master-01     | 172.16.16.102 | Ubuntu 20.04 | 2G  | 2   |
