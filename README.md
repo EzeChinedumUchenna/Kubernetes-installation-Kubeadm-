@@ -78,7 +78,7 @@ EOF
 sysctl --system
 ```
 
-##### Install Docker Engine on Ubuntu
+##### Install Docker Engine or runtime for Ubuntu on each of the Nodes in the cluster so that Pods can run there.
 
 1. Run the following command to uninstall all conflicting packages:
 ```
@@ -120,9 +120,14 @@ sudo apt-get update
 2. Download the public signing Key
    ```
    # If the directory `/etc/apt/keyrings` does not exist, it should be created before the curl command, read the note below.
-   sudo mkdir -m 760 /etc/apt/keyrings 
-   # sudo mkdir -p -m 755 /etc/apt/keyrings
+   sudo mkdir -p -m 755 /etc/apt/keyrings
    curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+   ```
+
+3. Add the appropriate Kubernetes apt repository
+   ```
+   # This overwrites any existing configuration in /etc/apt/sources.list.d/kubernetes.list
+   echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
    ```
 
 3. Update the apt package index, install kubelet, kubeadm and kubectl, and pin their version:
@@ -140,25 +145,26 @@ sudo apt-get update
   ```
 NOTE: The kubelet is now restarting every few seconds, as it waits in a crashloop for kubeadm to tell it what to do.
 
-
 ##### configure cgroup Driver 
 
 The kubelet and the container runtime need to use a cgroup driver. It's critical that the kubelet and the container runtime use the same cgroup driver and are configured the same. Here since we are using kubeadm will MUST use ```systemd``` as cgroupfs 
 
+1. Append the below
+KUBELET_EXTRA_ARGS=--cgroup-driver=systemd into /etc/sysconfig/kubelet
+  ```
+  cat /etc/sysconfig/kubelet
+  ```
+2. edit docker cgroup drive
+   First confirm that the "Cgroup Driver: cgroupfs" and change it to "Cgroup Driver:systemd"
+   ```
+   docker info
+   ``` 
+3. Create (or edit) the /etc/docker/daemon.json configuration file and to include the following:
 ```
-cat /etc/sysconfig/kubelet
+{
+  "exec-opts": ["native.cgroupdriver=systemd"]
+}
 ```
-Append the below
-KUBELET_EXTRA_ARGS=--cgroup-driver=systemd
-Here is the output of
-docker info
-:
-A solution that does not involve editing systemd units or drop-ins would be to create (or edit) the /etc/docker/daemon.json configuration file and to include the following:
-
-
-{"exec-opts": ["native.cgroupdriver=systemd"]}
-
-##### install a container runtime into each node in the cluster so that Pods can run there.
 
 
 
