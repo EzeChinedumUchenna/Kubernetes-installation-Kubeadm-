@@ -26,6 +26,7 @@ Install Haproxy
 apt update && apt install -y haproxy
 ```
 Configure haproxy
+
 Append the below lines to /etc/haproxy/haproxy.cfg
 
 ```
