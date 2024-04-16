@@ -61,20 +61,63 @@ swapoff -a; sed -i '/swap/d' /etc/fstab
 ```
 ##### Update sysctl settings for Kubernetes networking
 ```
-cat >>/etc/sysctl.d/kubernetes.conf<<EOF
-net.bridge.bridge-nf-call-ip6tables = 1
-net.bridge.bridge-nf-call-iptables = 1
+cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
+overlay
+br_netfilter
 EOF
+
+sudo modprobe overlay
+sudo modprobe br_netfilter
+
+cat <<EOF | sudo tee /etc/sysctl.d/k8s.conf
+net.bridge.bridge-nf-call-iptables  = 1
+net.bridge.bridge-nf-call-ip6tables = 1
+net.ipv4.ip_forward                 = 1
+EOF
+
 sysctl --system
 ```
-##### Install docker engine
-{
-  apt install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -
-  add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-  apt update && apt install -y docker-ce=5:19.03.10~3-0~ubuntu-focal containerd.io
-}
 
+##### Install Docker Engine on Ubuntu
+1. Set up Docker's apt repository.
+
+```
+sudo apt-get update
+sudo apt-get install ca-certificates curl
+sudo install -m 0755 -d /etc/apt/keyrings
+sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+
+# Add the repository to Apt sources:
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+sudo apt-get update
+
+```
+
+
+
+##### configure cgroup Driver 
+
+The kubelet and the container runtime need to use a cgroup driver. It's critical that the kubelet and the container runtime use the same cgroup driver and are configured the same. Here since we are using kubeadm will MUST use ```systemd``` as cgroupfs 
+
+```
+cat /etc/sysconfig/kubelet
+```
+Append the below
+KUBELET_EXTRA_ARGS=--cgroup-driver=systemd
+Here is the output of
+docker info
+:
+A solution that does not involve editing systemd units or drop-ins would be to create (or edit) the /etc/docker/daemon.json configuration file and to include the following:
+
+
+{"exec-opts": ["native.cgroupdriver=systemd"]}
+
+##### install a container runtime into each node in the cluster so that Pods can run there.
 
 
 
