@@ -174,39 +174,40 @@ runtime API for endpoint \"unix:///var/run/containerd/containerd.sock\": rpc err
    ```
 
 ## On any one of the Kubernetes master node (Eg: Master-01)
+Initialize Kubernetes Cluster
 
 ```
 kubeadm init --control-plane-endpoint="10.0.2.5:6443" --upload-certs --apiserver-advertise-address=10.0.2.4 --pod-network-cidr=192.168.0.0/16
 ```
 
-Add Apt repository
-{
-  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
-  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list
-}
-Install Kubernetes components
-apt update && apt install -y kubeadm=1.19.2-00 kubelet=1.19.2-00 kubectl=1.19.2-00
-On any one of the Kubernetes master node (Eg: kmaster1)
-Initialize Kubernetes Cluster
-kubeadm init --control-plane-endpoint="172.16.16.100:6443" --upload-certs --apiserver-advertise-address=172.16.16.101 --pod-network-cidr=192.168.0.0/16
 Copy the commands to join other master nodes and worker nodes.
 
-Deploy Calico network
+Note: If you run the command below on any of the WorkerNodes, you will find out that the nodes are not Ready yet thus we need to deploy a network
+```
+kubectl --kubeconfig=/etc/kubernetes/admin.conf get node
+```
+
+##### Deploy Calico network. Run the command below on one of the WorkerNode.
+```
 kubectl --kubeconfig=/etc/kubernetes/admin.conf create -f https://docs.projectcalico.org/v3.15/manifests/calico.yaml
+```
+
 Join other nodes to the cluster (kmaster2 & kworker1)
-Use the respective kubeadm join commands you copied from the output of kubeadm init command on the first master.
+NOTE: MAKE SURE YOU KEEP THE JOIN COMMAND SAFE AS YOU WILL BE USING THE SAME COMMAND TO JOIN MORE NODE TO THE CLUSTER
 
-IMPORTANT: You also need to pass --apiserver-advertise-address to the join command when you join the other master node.
 
-Downloading kube config to your local machine
-On your host machine
+##### Downloading kube config to your local machine
+On your host machine make a directory
 
 mkdir ~/.kube
 scp root@172.16.16.101:/etc/kubernetes/admin.conf ~/.kube/config
-Password for root account is kubeadmin (if you used my Vagrant setup)
+
 
 Verifying the cluster
 kubectl cluster-info
 kubectl get nodes
+kubectl -n kube-system get all
 kubectl get cs
-Have Fun!!
+
+
+THE END !!!
