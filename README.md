@@ -28,6 +28,7 @@ apt update && apt install -y haproxy
 Configure haproxy
 Append the below lines to /etc/haproxy/haproxy.cfg
 
+```
 frontend kubernetes-frontend
     bind 172.16.16.100:6443
     mode tcp
@@ -40,10 +41,12 @@ backend kubernetes-backend
     balance roundrobin
     server kmaster1 172.16.16.101:6443 check fall 3 rise 2
     server kmaster2 172.16.16.102:6443 check fall 3 rise 2
-
+```
     
-### Restart haproxy service
-```systemctl restart haproxy```
+Restart haproxy service
+```
+systemctl restart haproxy
+```
 On all kubernetes nodes (kmaster1, kmaster2, kworker1)
 Disable Firewall
 ufw disable
