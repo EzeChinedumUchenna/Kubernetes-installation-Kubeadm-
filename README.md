@@ -5,19 +5,15 @@ Follow this documentation to set up a highly available Kubernetes cluster using 
 This documentation guides you in setting up a cluster with two master nodes, one worker node and a load balancer node using HAProxy.
 
 
-| Role     | Servername | IP       | OS       | RAM      | CPU      |
-|----------|------------|----------|----------|----------|----------|
-| Load Balancer | Row 1, Col 2 | Row 1, Col 3 | Row 1, Col 4 | Row 1, Col 5 |
-|Master| Row 2, Col 2 | Row 2, Col 3 | Row 2, Col 4 | Row 2, Col 5 |
-| Master | Row 3, Col 2 | Row 3, Col 3 | Row 3, Col 4 | Row 3, Col 5 |
-| Worker | Row 4, Col 2 | Row 4, Col 3 | Row 4, Col 4 | Row 4, Col 5 |
-| Worker | Row 5, Col 2 | Row 5, Col 3 | Row 5, Col 4 | Row 5, Col 5 |
 
-Role	FQDN	IP	OS	RAM	CPU
-Load Balancer	loadbalancer.example.com	172.16.16.100	Ubuntu 20.04	1G	1
-Master	kmaster1.example.com	172.16.16.101	Ubuntu 20.04	2G	2
-Master	kmaster2.example.com	172.16.16.102	Ubuntu 20.04	2G	2
-Worker	kworker1.example.com	172.16.16.201	Ubuntu 20.04	1G	1
+
+| Role          | Server name            | IP            | OS           | RAM | CPU |
+|---------------|------------------------|---------------|--------------|-----|-----|
+| Load Balancer | loadbalancer | 172.16.16.100 | Ubuntu 20.04 | 1G  | 1   |
+| Master        | kmaster1     | 172.16.16.101 | Ubuntu 20.04 | 2G  | 2   |
+| Master        | kmaster2.     | 172.16.16.102 | Ubuntu 20.04 | 2G  | 2   |
+| Worker        | kworker1.    | 172.16.16.201 | Ubuntu 20.04 | 1G  | 1   |
+
 Password for the root account on all these virtual machines is kubeadmin
 Perform all the commands as root user unless otherwise specified
 Pre-requisites
