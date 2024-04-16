@@ -201,8 +201,10 @@ Join other nodes to the cluster (kmaster2 & kworker1).
 ###### On your host machine make a directory
 ```
 mkdir ~/.kube
-scp root@172.16.16.101:/etc/kubernetes/admin.conf ~/.kube/config
+scp root@132.16.16.101:/etc/kubernetes/admin.conf ~/.kube/config
 ```
+#### OR copy the content of the admin.conf into your local host file  ~/.kube/config
+
 
 ##### Verifying the cluster
 ```
