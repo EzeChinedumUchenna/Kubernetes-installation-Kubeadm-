@@ -7,17 +7,14 @@ This documentation guides you in setting up a cluster with two master nodes, one
 
 
 
-| Role          | Server name            | IP            | OS           | RAM | CPU |
-|---------------|------------------------|---------------|--------------|-----|-----|
-| Load Balancer | loadbalancer | 172.16.16.100 | Ubuntu 20.04 | 1G  | 1   |
-| Master        | kmaster1     | 172.16.16.101 | Ubuntu 20.04 | 2G  | 2   |
-| Master        | kmaster2.     | 172.16.16.102 | Ubuntu 20.04 | 2G  | 2   |
-| Worker        | kworker1.    | 172.16.16.201 | Ubuntu 20.04 | 1G  | 1   |
+| Role          | IP            | OS           | RAM | CPU |
+|---------------|------------------------|---------------|--------------|
+| Load Balancer | 172.16.16.100 | Ubuntu 20.04 | 1G  | 1   |
+| Master-01     | 172.16.16.101 | Ubuntu 20.04 | 2G  | 2   |
+| Master-01     | 172.16.16.102 | Ubuntu 20.04 | 2G  | 2   |
+| WorkerNode-01 | 172.16.16.201 | Ubuntu 20.04 | 1G  | 1   |
+| WorkerNode-02 | 172.16.16.201 | Ubuntu 20.04 | 1G  | 1   |
 
-Password for the root account on all these virtual machines is kubeadmin
-Perform all the commands as root user unless otherwise specified
-Pre-requisites
-If you want to try this in a virtualized environment on your workstation
 
 
 ## Set up load balancer node
