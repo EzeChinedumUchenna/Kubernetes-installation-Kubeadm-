@@ -5,13 +5,13 @@ Follow this documentation to set up a highly available Kubernetes cluster using 
 This documentation guides you in setting up a cluster with two master nodes, one worker node and a load balancer node using HAProxy.
 
 
-| Header 1 | Header 2 | Header 3 | Header 4 | Header 5 |
+| Role | Servername | IP | OS | RAM | CPU |
 |----------|----------|----------|----------|----------|
-| Row 1, Col 1 | Row 1, Col 2 | Row 1, Col 3 | Row 1, Col 4 | Row 1, Col 5 |
-| Row 2, Col 1 | Row 2, Col 2 | Row 2, Col 3 | Row 2, Col 4 | Row 2, Col 5 |
-| Row 3, Col 1 | Row 3, Col 2 | Row 3, Col 3 | Row 3, Col 4 | Row 3, Col 5 |
-| Row 4, Col 1 | Row 4, Col 2 | Row 4, Col 3 | Row 4, Col 4 | Row 4, Col 5 |
-| Row 5, Col 1 | Row 5, Col 2 | Row 5, Col 3 | Row 5, Col 4 | Row 5, Col 5 |
+| Load Balancer | Row 1, Col 2 | Row 1, Col 3 | Row 1, Col 4 | Row 1, Col 5 |
+|Master| Row 2, Col 2 | Row 2, Col 3 | Row 2, Col 4 | Row 2, Col 5 |
+| Master | Row 3, Col 2 | Row 3, Col 3 | Row 3, Col 4 | Row 3, Col 5 |
+| Worker | Row 4, Col 2 | Row 4, Col 3 | Row 4, Col 4 | Row 4, Col 5 |
+| Worker | Row 5, Col 2 | Row 5, Col 3 | Row 5, Col 4 | Row 5, Col 5 |
 
 Role	FQDN	IP	OS	RAM	CPU
 Load Balancer	loadbalancer.example.com	172.16.16.100	Ubuntu 20.04	1G	1
