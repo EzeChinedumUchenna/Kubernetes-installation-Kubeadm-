@@ -12,8 +12,8 @@ This documentation guides you in setting up a cluster with two master nodes, two
 | Load Balancer | 10.0.2.5 | Ubuntu 20.04 | 2G  | 1   |
 | Master-01     | 10.0.2.4 | Ubuntu 20.04 | 2G  | 2   |
 | Master-02     | 10.0.2.6 | Ubuntu 20.04 | 2G  | 2   |
-| WorkerNode-01 | 172.16.16.201 | Ubuntu 20.04 | 2G  | 1   |
-| WorkerNode-02 | 172.16.16.201 | Ubuntu 20.04 | 2G  | 1   |
+| WorkerNode-01 | 10.0.2.7 | Ubuntu 20.04 | 2G  | 1   |
+| WorkerNode-02 | 10.0.2.8 | Ubuntu 20.04 | 2G  | 1   |
 
 ##### Switch to Root user on all nodes
 ```
