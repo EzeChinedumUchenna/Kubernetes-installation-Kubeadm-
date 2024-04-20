@@ -50,7 +50,7 @@ systemctl restart haproxy
 ```
 
 
-## On all kubernetes nodes except Load Balancer Node (Master-01, Master-02, WorkerNode-01, WorkerNode-02)
+## Run on all kubernetes nodes except Load Balancer Node (Master-01, Master-02, WorkerNode-01, WorkerNode-02)
 ##### Disable Firewall
 ```
 ufw disable
@@ -78,7 +78,7 @@ EOF
 sysctl --system
 ```
 
-##### Install Docker Engine or runtime for Ubuntu on each of the Nodes in the cluster so that Pods can run there.
+##### Install Docker Engine or runtime for Ubuntu on each of the Nodes in the cluster (except Load balancer Node) so that Pods can run there.
 
 1. Run the following command to uninstall all conflicting packages:
 ```
