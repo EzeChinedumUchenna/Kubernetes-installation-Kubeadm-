@@ -50,7 +50,7 @@ systemctl restart haproxy
 ```
 
 
-## On all kubernetes nodes (Master-01, Master-o2, WorkerNode-01, WorkerNode-02)
+## On all kubernetes nodes except Load Balancer Node (Master-01, Master-02, WorkerNode-01, WorkerNode-02)
 ##### Disable Firewall
 ```
 ufw disable
