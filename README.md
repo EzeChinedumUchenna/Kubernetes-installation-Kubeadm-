@@ -221,18 +221,28 @@ kubectl get cs
 
 
 
+
 # Troubleshooting Kubernetes
 
 ###  Error message: If you get the error below when running ```sudo apt update```, 
 Hit:1 https://packages.microsoft.com/ubuntu/22.04/prod jammy InRelease.
+
 Hit:2 http://azure.archive.ubuntu.com/ubuntu jammy InRelease.
+
 Get:3 http://azure.archive.ubuntu.com/ubuntu jammy-updates InRelease [109 kB].
+
+
 Get:4 http://azure.archive.ubuntu.com/ubuntu jammy-backports InRelease [99.8 kB].
+
 Get:5 http://azure.archive.ubuntu.com/ubuntu jammy-security InRelease [110 kB].
+
 Get:6 https://cloud.r-project.org/bin/linux/ubuntu jammy-cran40/ InRelease [3626 B]
 
 ### Solution: Check the apt directory for any unfamilar pkg. Here I found kubernetes.list and docker.list when I checked /etc/apt/sources.list.d
+
 $ rm /etc/apt/sources.list.d/kubernetes.list.
+
 $ rm /etc/apt/sources.list.d/docker.list.
+
 $ sudo reboot.
 
